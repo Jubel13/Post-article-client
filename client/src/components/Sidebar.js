@@ -32,7 +32,7 @@ function Sidebar() {
             </Link>
           </li>
           <li className='nav-item'>
-            <Link to='payment' className='nav-link nav-menu'>
+            <Link to='preview' className='nav-link nav-menu'>
               <i class='fa-solid fa-file-invoice'></i>&nbsp; Preview
             </Link>
           </li>

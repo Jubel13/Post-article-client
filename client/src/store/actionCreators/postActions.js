@@ -34,6 +34,21 @@ export function editPost(payload, id) {
   };
 }
 
+export function addPost(payload) {
+  return (dispatch) => {
+    return new Promise((resolve, reject) => {
+      axios
+        .post(`${baseUrl}`, payload)
+        .then((resp) => {
+          resolve(resp.data);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    });
+  };
+}
+
 export function fetchPostAction(payload) {
   return {
     type: FETCH_POST,

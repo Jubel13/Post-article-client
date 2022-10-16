@@ -97,6 +97,7 @@ function PostModal({ post, show, setShow }) {
                 value={status}
                 onChange={changeStatus}
               >
+                <option>----</option>
                 <option value='Publish'>Publish</option>
                 <option value='Draft'>Draft</option>
               </select>

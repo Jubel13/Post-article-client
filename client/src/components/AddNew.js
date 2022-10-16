@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { editPost, fetchPost } from "../store/actionCreators/postActions";
+import { addPost, fetchPost } from "../store/actionCreators/postActions";
+import { useNavigate } from "react-router-dom";
 
 function AddNew() {
   const [title, setTitle] = useState("");
@@ -9,6 +10,8 @@ function AddNew() {
   const [status, setStatus] = useState("");
 
   const dispatch = useDispatch();
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(fetchPost(10, 0));
@@ -41,6 +44,35 @@ function AddNew() {
       Category: category,
       Status: status,
     };
+
+    dispatch(addPost(data));
+    dispatch(fetchPost(10, 0));
+  }
+
+  function publishHandler() {
+    const data = {
+      Title: title,
+      Content: content,
+      Category: category,
+      Status: "Publish",
+    };
+
+    dispatch(addPost(data));
+    dispatch(fetchPost(10, 0));
+    navigate("/posts");
+  }
+
+  function draftHandler() {
+    const data = {
+      Title: title,
+      Content: content,
+      Category: category,
+      Status: "Draft",
+    };
+
+    dispatch(addPost(data));
+    dispatch(fetchPost(10, 0));
+    navigate("/posts");
   }
 
   return (
@@ -70,26 +102,25 @@ function AddNew() {
           <label for='category'>Category</label>
           <input
             type='text'
-            class='form-control'
+            class='form-control mb-3'
             id='category'
             value={category}
             onChange={changeCategory}
           />
         </div>
-        <div class='form-group mb-3'>
-          <label for='status'>Status</label>
-          <select
-            class='form-control'
-            id='status'
-            value={status}
-            onChange={changeStatus}
-          >
-            <option value='Publish'>Publish</option>
-            <option value='Draft'>Draft</option>
-          </select>
-        </div>
-        <button type='submit' className='btn btn-primary'>
-          Submit
+        <button
+          type='submit'
+          className='btn btn-primary me-3'
+          onClick={publishHandler}
+        >
+          Publish
+        </button>
+        <button
+          type='submit'
+          className='btn btn-primary'
+          onClick={draftHandler}
+        >
+          Draft
         </button>
       </form>
     </>
